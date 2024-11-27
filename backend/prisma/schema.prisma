@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator pothos {
+  provider    = "prisma-pothos-types"
+  prismaUtils = "true"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Auction {
+  id           Int      @id @default(autoincrement())
+  title        String
+  currentPrice Int
+  status       String   @default("ACTIVE")
+  endTime      DateTime
+  bids         Bid[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Bid {
+  id         Int      @id @default(autoincrement())
+  auctionId  Int
+  amount     Int
+  createdAt  DateTime @default(now())
+  auction    Auction  @relation(fields: [auctionId], references: [id])
+}
