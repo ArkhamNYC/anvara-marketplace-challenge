@@ -3,8 +3,7 @@ generator client {
 }
 
 generator pothos {
-  provider    = "prisma-pothos-types"
-  prismaUtils = "true"
+  provider = "prisma-pothos-types"
 }
 
 datasource db {
@@ -12,21 +11,81 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Auction {
-  id           Int      @id @default(autoincrement())
-  title        String
-  currentPrice Int
-  status       String   @default("ACTIVE")
-  endTime      DateTime
-  bids         Bid[]
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+model Company {
+  id         Int       @id @default(autoincrement())
+  name       String
+  listings   Listing[]
 }
 
-model Bid {
+model Listing {
+  id                Int          @id @default(autoincrement())
+  name              String
+  description       String
+  startDate         DateTime?
+  endDate           DateTime?
+  companyId         Int
+  company           Company      @relation(fields: [companyId], references: [id])
+  locationId        Int?
+  location          Location?    @relation(fields: [locationId], references: [id])
+  eventListingId    Int?
+  eventListing      Event?       @relation(fields: [eventListingId], references: [id])
+  oohListingId      Int?
+  oohListing        OutOfHome?   @relation(fields: [oohListingId], references: [id])
+  onProductListingId Int?
+  onProductListing   OnProduct?  @relation(fields: [onProductListingId], references: [id])
+}
+
+model Location {
+  id         Int       @id @default(autoincrement())
+  address    String
+  coordinates Float[]
+  listings   Listing[]
+}
+
+model Event {
+  id         Int       @id @default(autoincrement())
+  name       String
+  startDate  DateTime
+  endDate    DateTime
+  location   String
+  tiers      Tier[]    // A list of tiers related to the event
+  listings   Listing[]
+}
+
+model OutOfHome {
+  id         Int       @id @default(autoincrement())
+  name       String
+  location   String
+  startDate  DateTime
+  endDate    DateTime
+  packages   OutOfHomePackage[] // Out of Home packages
+  listings   Listing[]
+}
+
+model OnProduct {
+  id           Int       @id @default(autoincrement())
+  name         String
+  description  String
+  startDate    DateTime
+  endDate      DateTime
+  pricePerUnit Decimal    @db.Money  // price per unit for the on-product listing
+  totalUnits   Int        // total number of units available for this product
+  listings     Listing[]
+}
+
+model Tier {
+  id          Int      @id @default(autoincrement())
+  name        String
+  eventId     Int
+  event       Event    @relation(fields: [eventId], references: [id])
+  price       Decimal  @db.Money
+  description String?
+}
+
+model OutOfHomePackage {
   id         Int      @id @default(autoincrement())
-  auctionId  Int
-  amount     Int
-  createdAt  DateTime @default(now())
-  auction    Auction  @relation(fields: [auctionId], references: [id])
+  name       String
+  price      Decimal  @db.Money
+  oohId      Int
+  ooh        OutOfHome @relation(fields: [oohId], references: [id])
 }
