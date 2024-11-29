@@ -60,5 +60,4 @@ npm run dev
 
 ## Time Limit
 
-- 90-120 minutes
 - Submit within 24 hours
