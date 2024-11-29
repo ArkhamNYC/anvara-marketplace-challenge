@@ -58,13 +58,31 @@ npm run dev
 - Getting detailed listing information
 - Implement proper error handling
 
-## Evaluation
+## Evaluation Criteria
 
-- Code organization
-- GraphQL/TypeScript implementation
-- Error handling
-- UI/UX design
-- Component structure
+We'll evaluate your implementation across these key areas:
+
+### Technical Implementation
+
+- GraphQL setup and query structure
+- Component architecture and reusability
+- State and error handling
+- Filter/search implementation
+- Loading state management
+
+### Code Quality
+
+- TypeScript usage and type safety
+- Code organization and readability
+- React and GraphQL best practices
+- Error handling patterns
+
+### User Experience
+
+- Responsive and clean interface
+- Intuitive filtering and search
+- Loading and error states
+- Edge case handling
 
 ## Time Limit
 
