@@ -1,6 +1,4 @@
-# Auction Challenge
-
-Build a full-stack auction bidding system where users can view auctions and submit bids.
+# Marketplace Challenge
 
 ## Setup
 
@@ -19,7 +17,7 @@ docker-compose up -d
 cd backend
 npm install
 npx prisma migrate dev  # Creates database tables
-npx prisma db seed     # Seeds initial auction data
+npx prisma db seed     # Seeds initial data
 npm run dev
 
 # View/edit database (optional)

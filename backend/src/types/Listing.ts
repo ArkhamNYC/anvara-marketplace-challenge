@@ -27,7 +27,7 @@ builder.queryField("listing", (t) =>
     type: "Listing",
     nullable: true,
     args: {
-      id: t.arg.string({ required: true }),
+      id: t.arg.int({ required: true }),
     },
     resolve: async (query, root, args, ctx, info) => {
       return ctx.prisma.listing.findUnique({
