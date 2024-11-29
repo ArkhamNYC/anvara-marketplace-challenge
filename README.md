@@ -30,6 +30,14 @@ npx prisma studio   # Opens web interface at http://localhost:5555
 # Setup frontend (in new terminal)
 cd frontend
 npm install
+
+# Install GraphQL client (choose one):
+npm install urql   # For urql
+# OR
+npm install @apollo/client graphql   # For Apollo
+
+npm run dev
+
 npm run dev
 ```
 
